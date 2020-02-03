@@ -8,13 +8,13 @@ background: rgba(90, 115, 163, 0.2);
 `;
 
 const ContainerYears = styled.div`
-display: flex;
-justify-content: space-between;
-flex-direction: column;
+display: grid;
+grid-template-rows: auto;
 background: white;
 border: 1px solid #5a73a3;
 border-radius: 4px;
 height: 100%;
+width: 100%;
 `;
 
 const TimelineResume = () => {

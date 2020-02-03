@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 const ContainerItem = styled.div`
 margin-top: .5em;
+display: grid;
+grid-template-rows: 1fr 4fr;
 `;
 
 const ContainerTitle = styled.div`
@@ -31,12 +33,35 @@ background: white;
 z-index: 2;
 `;
 
+const ContainerPointItem = styled.div`
+display: grid;
+grid-template-rows: repeat(12, 1fr);
+`;
+
+const Point = styled.div`
+
+`;
+
 const TimelineResumeItem = () => {
     return (
         <ContainerItem>
             <ContainerTitle>
                 <Title>2029</Title>
             </ContainerTitle>
+            <ContainerPointItem>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </ContainerPointItem>
         </ContainerItem>
     );
 };
