@@ -36,10 +36,19 @@ z-index: 2;
 const ContainerPointItem = styled.div`
 display: grid;
 grid-template-rows: repeat(12, 1fr);
+padding: 0 .5em;
+`;
+
+const  ContainerPoint = styled.div`
+display: flex;
 `;
 
 const Point = styled.div`
-
+width: 3px;
+height: 3px;
+border-radius: 50%;
+background: #5a73a3;
+margin: 1px;
 `;
 
 const TimelineResumeItem = () => {
@@ -49,18 +58,32 @@ const TimelineResumeItem = () => {
                 <Title>2029</Title>
             </ContainerTitle>
             <ContainerPointItem>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <ContainerPoint>
+                    <Point/>
+                </ContainerPoint>
+                <ContainerPoint>
+                    <Point/>
+                    <Point/>
+                    <Point/>
+                    <Point/>
+                </ContainerPoint>
+                <ContainerPoint>
+                    </ContainerPoint>
+                <ContainerPoint>
+                    <Point/>
+                </ContainerPoint>
+                <ContainerPoint>
+                    <Point/>
+                    <Point/>
+                    <Point/>
+                </ContainerPoint>
+                <ContainerPoint>
+                    <Point/>
+                </ContainerPoint>
+                <ContainerPoint>
+                    <Point/>
+                    <Point/>
+                </ContainerPoint>
             </ContainerPointItem>
         </ContainerItem>
     );
