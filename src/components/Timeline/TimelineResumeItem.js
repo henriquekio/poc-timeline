@@ -41,6 +41,7 @@ padding: 0 .5em;
 
 const  ContainerPoint = styled.div`
 display: flex;
+justify-content: space-between;
 `;
 
 const Point = styled.div`

@@ -3,18 +3,19 @@ import styled from 'styled-components'
 import TimelineItens from "./TimelineItens";
 import TimelineResume from "./TimelineResume";
 
-const Timeline = (props) => {
-    const TimeLineContainer = styled.div`
+const TimeLineContainer = styled.div`
         display: grid;
         grid-template-columns: 10fr 2fr;
-        height: ${props.height || 0}px;
-    `;
+        height: ${props => props.height || 0}px;  
+`;
+
+const Index = ({height}) => {
     return (
-        <TimeLineContainer>
+        <TimeLineContainer {...{height}}>
             <TimelineItens/>
             <TimelineResume/>
         </TimeLineContainer>
     );
 };
 
-export default Timeline;
+export default Index;

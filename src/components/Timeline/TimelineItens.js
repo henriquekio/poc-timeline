@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
 display: flex;
 flex-direction: column;
 margin: .7em;
-overflow-x: hidden;
+overflow-y: scroll;
 `;
 
 const ContainerItem = styled.div`
@@ -49,8 +49,14 @@ color: #757575;
 `;
 
 const TimelineItens = () => {
+    const refContainer = useRef(null);
+
+    const seloko = () => {
+        console.log(refContainer.current.scrollHeight);
+    }
+
     return (
-        <Container>
+        <Container onScroll={seloko} ref={refContainer}>
             <ContainerItem>
                 <Item>
                     <Icon>
