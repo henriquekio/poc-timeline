@@ -1,4 +1,5 @@
-import React, {useRef} from 'react';
+import React, {useRef, useContext, useEffect} from 'react';
+import TimelineContext from './context/TimelineContext';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -50,13 +51,14 @@ color: #757575;
 
 const TimelineItens = () => {
     const refContainer = useRef(null);
+    const timelineContext = useContext(TimelineContext);
 
-    const seloko = () => {
-        console.log(refContainer.current.scrollHeight);
-    }
+    useEffect(() => {
+        timelineContext.setScrollHeight(refContainer.current.scrollHeight);
+    });
 
     return (
-        <Container onScroll={seloko} ref={refContainer}>
+        <Container  ref={refContainer}>
             <ContainerItem>
                 <Item>
                     <Icon>

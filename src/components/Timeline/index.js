@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import TimelineItens from "./TimelineItens";
 import TimelineResume from "./TimelineResume";
+import TimelineContextProvider from '../Timeline/context/TimelineContextProvider';
 
 const TimeLineContainer = styled.div`
         display: grid;
@@ -11,10 +12,12 @@ const TimeLineContainer = styled.div`
 
 const Index = ({height}) => {
     return (
-        <TimeLineContainer {...{height}}>
-            <TimelineItens/>
-            <TimelineResume/>
-        </TimeLineContainer>
+        <TimelineContextProvider>
+            <TimeLineContainer {...{height}}>
+                <TimelineItens/>
+                <TimelineResume/>
+            </TimeLineContainer>
+        </TimelineContextProvider>
     );
 };
 

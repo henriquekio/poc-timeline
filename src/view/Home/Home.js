@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Index from "../../components/Timeline";
+import Timeline from "../../components/Timeline";
 
 const Container = styled.div`
 display: grid;
@@ -23,7 +23,7 @@ const Home = () => {
                     <h1>...</h1>
                 </div>
                 <div>
-                    <Index {...{height: 500}}/>
+                    <Timeline {...{height: 500}}/>
                 </div>
             </Content>
         </Container>
