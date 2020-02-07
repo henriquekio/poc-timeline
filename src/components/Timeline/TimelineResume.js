@@ -27,6 +27,19 @@ content: '';
 height: 100%;
 width: 100%;
 z-index: 999;
+
+::-webkit-scrollbar {
+  width: 100%;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: rgba(90, 115, 163, 0.5); 
+  height: 48px;
+}
 `;
 
 const ScrollTimeLine = styled.div`
@@ -45,7 +58,9 @@ const TimelineResume = () => {
         <Container>
             <ContainerYears>
                 <ScrollTimeLineContainer onScroll={updateScrollTop} ref={scrollRef}>
-                    <ScrollTimeLine heightScroll={scrollHeight}/>
+                    <ScrollTimeLine heightScroll={scrollHeight}>
+
+                    </ScrollTimeLine>
                 </ScrollTimeLineContainer>
                 <TimelineResumeItem/>
                 <TimelineResumeItem/>
