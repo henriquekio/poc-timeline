@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useContext, useRef} from 'react';
+import TimelineContext from "./context/TimelineContext";
 import styled from 'styled-components'
 import TimelineResumeItem from "./TimelineResumeItem";
 
@@ -18,7 +19,7 @@ height: 100%;
 width: 100%;
 `;
 
-const ScrollTimeLine = styled.div`
+const ScrollTimeLineContainer = styled.div`
 position: absolute;
 overflow-y: scroll;
 display: block; 
@@ -28,13 +29,24 @@ width: 100%;
 z-index: 999;
 `;
 
-const TimelineResume = (props) => {
+const ScrollTimeLine = styled.div`
+height: ${props => props.heightScroll || 0}px;
+`;
+
+const TimelineResume = () => {
+    const scrollRef = useRef(null);
+    const {scrollHeight, setScrollTop} = useContext(TimelineContext);
+
+    const updateScrollTop = () => {
+      setScrollTop(scrollRef.current.scrollTop)
+    };
+
     return (
         <Container>
             <ContainerYears>
-                <ScrollTimeLine>
-                    <div></div>
-                </ScrollTimeLine>
+                <ScrollTimeLineContainer onScroll={updateScrollTop} ref={scrollRef}>
+                    <ScrollTimeLine heightScroll={scrollHeight}/>
+                </ScrollTimeLineContainer>
                 <TimelineResumeItem/>
                 <TimelineResumeItem/>
                 <TimelineResumeItem/>

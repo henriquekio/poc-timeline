@@ -6,7 +6,7 @@ const Container = styled.div`
 display: flex;
 flex-direction: column;
 margin: .7em;
-overflow-y: scroll;
+overflow-y: hidden;
 `;
 
 const ContainerItem = styled.div`
@@ -51,10 +51,11 @@ color: #757575;
 
 const TimelineItens = () => {
     const refContainer = useRef(null);
-    const timelineContext = useContext(TimelineContext);
+    const {setScrollHeight, scrollTop} = useContext(TimelineContext);
 
     useEffect(() => {
-        timelineContext.setScrollHeight(refContainer.current.scrollHeight);
+        setScrollHeight(refContainer.current.scrollHeight);
+        refContainer.current.scrollTop = scrollTop;
     });
 
     return (
