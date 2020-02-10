@@ -6,7 +6,7 @@ const Container = styled.div`
 display: flex;
 flex-direction: column;
 margin: .7em;
-overflow-y: hidden;
+overflow-y: scroll;
 `;
 
 const ContainerItem = styled.div`
