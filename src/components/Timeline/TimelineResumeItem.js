@@ -39,7 +39,7 @@ grid-template-rows: repeat(12, 1fr);
 padding: 0 .5em;
 `;
 
-const  ContainerPoint = styled.div`
+const ContainerPoint = styled.div`
 display: flex;
 justify-content: space-between;
 `;
@@ -52,37 +52,14 @@ background: #5a73a3;
 margin: 1px;
 `;
 
-const TimelineResumeItem = () => {
+const TimelineResumeItem = ({item = {}}) => {
     return (
         <ContainerItem>
             <ContainerTitle>
-                <Title>2029</Title>
+                <Title>{item.year}</Title>
             </ContainerTitle>
             <ContainerPointItem>
                 <ContainerPoint>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                    <Point/>
-                    <Point/>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                    <Point/>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
                     <Point/>
                 </ContainerPoint>
             </ContainerPointItem>

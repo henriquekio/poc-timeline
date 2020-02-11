@@ -24,7 +24,7 @@ const Index = ({height, timelineItens}) => {
     return (
         <TimeLineContainer {...{height}}>
             <TimelineItens {...{itens}}/>
-            <TimelineResume/>
+            <TimelineResume {...{itens}}/>
         </TimeLineContainer>
     );
 };
