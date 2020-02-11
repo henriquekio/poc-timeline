@@ -37,8 +37,7 @@ const TimelineResume = (props) => {
 
     const [range, setRange] = useState([50, 75]);
     useEffect(() => {
-        console.log(range);
-    })
+    });
 
     return (
         <Container>
