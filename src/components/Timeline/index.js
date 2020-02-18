@@ -12,7 +12,6 @@ const TimeLineContainer = styled.div`
 `;
 
 const Index = ({height, timelineItens}) => {
-
     const itens = _.chain(timelineItens)
         .sortBy('date')
         .groupBy('date', (item) => moment(item.date).month())
@@ -24,7 +23,7 @@ const Index = ({height, timelineItens}) => {
     return (
         <TimeLineContainer {...{height}}>
             <TimelineItens {...{itens}}/>
-            <TimelineResume {...{itens}}/>
+            <TimelineResume data={timelineItens}/>
         </TimeLineContainer>
     );
 };

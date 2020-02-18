@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components'
 import TimelineResumeItem from "./TimelineResumeItem";
-import {Range, Direction, getTrackBackground} from 'react-range';
+import {Direction, getTrackBackground, Range} from 'react-range';
 import _ from 'lodash';
 import moment from "moment";
 
@@ -32,20 +32,19 @@ z-index: 999;
 `;
 
 
-const TimelineResume = ({itens}) => {
-    const scrollTimelineItens = _.chain(itens)
+const TimelineResume = ({data = []}) => {
+    const years = _.chain(data)
         .groupBy(item => moment(item.date).year())
         .map((data, index) => ({
-            year: index, data
+            year: index,
+            data
         })).value();
-    console.log(scrollTimelineItens);
+
     const MIN = 0;
     const MAX = 100;
     const STEP = 0.1;
 
     const [range, setRange] = useState([50, 75]);
-    useEffect(() => {
-    });
 
     return (
         <Container>
@@ -103,7 +102,7 @@ const TimelineResume = ({itens}) => {
                         )}
                     />
                 </ScrollTimeLineContainer>
-                {scrollTimelineItens.map((item, index) => (<TimelineResumeItem key={index} {...{item}} />))}
+                {years.map((item, index) => (<TimelineResumeItem key={index} {...{item}} />))}
             </ContainerYears>
         </Container>
     );
