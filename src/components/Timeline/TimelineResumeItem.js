@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
+import _ from 'lodash';
+import moment from "moment";
 
 const ContainerItem = styled.div`
 margin-top: .5em;
@@ -35,14 +37,26 @@ z-index: 2;
 
 const ContainerPointItem = styled.div`
 display: grid;
-grid-template-rows: repeat(12, 1fr);
+grid-template-areas: "month1"
+"month2"
+"month3"
+"month4"
+"month5"
+"month6"
+"month7"
+"month8"
+"month9"
+"month10"
+"month11"
+"month12";
 padding: 0 .5em;
 `;
 
-const ContainerPoint = styled.div`
-display: flex;
-justify-content: space-between;
-`;
+const ContainerPoint = styled.div(({month}) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    gridArea: 'month'+month
+}));
 
 const Point = styled.div`
 width: 3px;
@@ -53,15 +67,23 @@ margin: 1px;
 `;
 
 const TimelineResumeItem = ({item = {}}) => {
+    const {data} = item;
+    const month = _.chain(data)
+        .groupBy(({date}) => (moment(date).month() + 1))
+        .map((value, index) => ({month: parseInt(index), data: value}))
+        .value();
+
     return (
         <ContainerItem>
             <ContainerTitle>
                 <Title>{item.year}</Title>
             </ContainerTitle>
             <ContainerPointItem>
-                <ContainerPoint>
-                    <Point/>
-                </ContainerPoint>
+                {month.map(({month, data}) => (
+                    <ContainerPoint key={month} {...{month}}>
+                        {data.map((data, index) => <Point key={index}/>)}
+                    </ContainerPoint>
+                ))}
             </ContainerPointItem>
         </ContainerItem>
     );
