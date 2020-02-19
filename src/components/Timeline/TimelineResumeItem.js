@@ -6,7 +6,7 @@ import moment from "moment";
 const ContainerItem = styled.div`
 margin-top: .5em;
 display: grid;
-grid-template-rows: 1fr 4fr;
+grid-template-rows: 20px 2fr;
 `;
 
 const ContainerTitle = styled.div`
@@ -29,7 +29,7 @@ display: inline-block;
 margin: 0;
 padding: 0 .2em;
 color: #5a73a3;
-font-size: .8rem;
+font-size: .6rem;
 font-weight: 500;
 background: white;
 z-index: 2;

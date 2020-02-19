@@ -7,7 +7,7 @@ import moment from "moment";
 
 const TimeLineContainer = styled.div`
         display: grid;
-        grid-template-columns: 10fr 2fr;
+        grid-template-columns: 11fr 1fr;
         height: ${props => props.height || 0}px;  
 `;
 
