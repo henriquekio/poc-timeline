@@ -1,15 +1,22 @@
 import React from 'react';
 import styled from 'styled-components'
+import _ from 'lodash';
+import moment from "moment";
 
 const ContainerItem = styled.div`
-margin-top: .5em;
+position: relative;
 display: grid;
-grid-template-rows: 1fr 4fr;
+grid-template-rows: 2fr;
 `;
 
 const ContainerTitle = styled.div`
-position: relative;
+position: absolute;
 text-align: center;
+top: 0;
+right: 0;
+left: 0;
+display: inline-block;
+margin: 0 auto;
 &:before{
 position: absolute;
 content: '';
@@ -27,7 +34,7 @@ display: inline-block;
 margin: 0;
 padding: 0 .2em;
 color: #5a73a3;
-font-size: .8rem;
+font-size: .6rem;
 font-weight: 500;
 background: white;
 z-index: 2;
@@ -35,14 +42,26 @@ z-index: 2;
 
 const ContainerPointItem = styled.div`
 display: grid;
-grid-template-rows: repeat(12, 1fr);
-padding: 0 .5em;
+grid-template-areas: "month1"
+"month2"
+"month3"
+"month4"
+"month5"
+"month6"
+"month7"
+"month8"
+"month9"
+"month10"
+"month11"
+"month12";
+width: 40px;
 `;
 
-const  ContainerPoint = styled.div`
-display: flex;
-justify-content: space-between;
-`;
+const ContainerPoint = styled.div(({month}) => ({
+    display: 'flex',
+    justifyContent: 'space-between',
+    gridArea: 'month' + month
+}));
 
 const Point = styled.div`
 width: 3px;
@@ -52,39 +71,24 @@ background: #5a73a3;
 margin: 1px;
 `;
 
-const TimelineResumeItem = () => {
+const TimelineResumeItem = ({item = {}}) => {
+    const {data} = item;
+    const month = _.chain(data)
+        .groupBy(({date}) => (moment(date).month() + 1))
+        .map((value, index) => ({month: parseInt(index), data: value}))
+        .value();
+
     return (
         <ContainerItem>
-            <ContainerTitle>
-                <Title>2029</Title>
-            </ContainerTitle>
             <ContainerPointItem>
-                <ContainerPoint>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                    <Point/>
-                    <Point/>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
+                <ContainerTitle>
+                    <Title>{item.year}</Title>
+                </ContainerTitle>
+                {month.map(({month, data}) => (
+                    <ContainerPoint key={month} {...{month}}>
+                        {data.map((data, index) => <Point key={index}/>)}
                     </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                    <Point/>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                </ContainerPoint>
-                <ContainerPoint>
-                    <Point/>
-                    <Point/>
-                </ContainerPoint>
+                ))}
             </ContainerPointItem>
         </ContainerItem>
     );

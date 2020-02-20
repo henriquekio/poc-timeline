@@ -1,12 +1,21 @@
-import React, {useRef, useContext, useEffect} from 'react';
-import TimelineContext from './context/TimelineContext';
+import React from 'react';
 import styled from 'styled-components';
+import moment from "moment";
 
 const Container = styled.div`
 display: flex;
 flex-direction: column;
+padding: .5em;
 margin: .7em;
-overflow-y: hidden;
+overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+    background-color: #EBEBEB;  
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc; 
+  }
 `;
 
 const ContainerItem = styled.div`
@@ -49,167 +58,26 @@ font-size: 1em;
 color: #757575;
 `;
 
-const TimelineItens = () => {
-    const refContainer = useRef(null);
-    const {setScrollHeight, scrollTop} = useContext(TimelineContext);
-
-    useEffect(() => {
-        setScrollHeight(refContainer.current.scrollHeight);
-        refContainer.current.scrollTop = scrollTop;
-    });
-
+const TimelineItens = ({itens = []}) => {
     return (
-        <Container  ref={refContainer}>
-            <ContainerItem>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <FooterItem>
-                    12/06/2020
-                </FooterItem>
-            </ContainerItem>
-            <ContainerItem>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <FooterItem>
-                    12/06/2020
-                </FooterItem>
-            </ContainerItem>
-            <ContainerItem>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <FooterItem>
-                    12/06/2020
-                </FooterItem>
-            </ContainerItem>
-            <ContainerItem>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <FooterItem>
-                    12/06/2020
-                </FooterItem>
-            </ContainerItem>
-            <ContainerItem>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <FooterItem>
-                    12/06/2020
-                </FooterItem>
-            </ContainerItem>
-            <ContainerItem>
-                <Item>
-                    <Icon>
-                        <i className="material-icons">face</i>
-                    </Icon>
-                    <div>
-                        <Badge>
-                            Exame AC
-                        </Badge>
-                    </div>
-                </Item>
-                <FooterItem>
-                    12/06/2020
-                </FooterItem>
-            </ContainerItem>
+        <Container>
+            {itens.map(((item, index) => (
+                <ContainerItem key={index}>
+                    {item.data.map(event => (
+                        <Item key={event.id}>
+                            <Icon>
+                                <i className="material-icons">face</i>
+                            </Icon>
+                            <div>
+                                <Badge>
+                                    {event.title}
+                                </Badge>
+                            </div>
+                        </Item>
+                    ))}
+                    <FooterItem>{moment(item.date).format('DD/MM/YYYY')}</FooterItem>
+                </ContainerItem>
+            )))}
         </Container>
     );
 };

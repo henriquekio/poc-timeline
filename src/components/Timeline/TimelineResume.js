@@ -1,7 +1,9 @@
-import React, {useContext, useRef} from 'react';
-import TimelineContext from "./context/TimelineContext";
+import React, {useState} from 'react';
 import styled from 'styled-components'
 import TimelineResumeItem from "./TimelineResumeItem";
+import {Direction, getTrackBackground, Range} from 'react-range';
+import _ from 'lodash';
+import moment from "moment";
 
 const Container = styled.div`
 padding: 1em;
@@ -21,51 +23,98 @@ width: 100%;
 
 const ScrollTimeLineContainer = styled.div`
 position: absolute;
-overflow-y: scroll;
+overflow-y: hidden;
 display: block; 
 content: '';
 height: 100%;
 width: 100%;
 z-index: 999;
-
-::-webkit-scrollbar {
-  width: 100%;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent; 
-}
- 
-::-webkit-scrollbar-thumb {
-  background: rgba(90, 115, 163, 0.5); 
-  height: 48px;
-}
 `;
 
-const ScrollTimeLine = styled.div`
-height: ${props => props.heightScroll || 0}px;
-`;
 
-const TimelineResume = () => {
-    const scrollRef = useRef(null);
-    const {scrollHeight, setScrollTop} = useContext(TimelineContext);
+const TimelineResume = ({data = []}) => {
+    const years = _.chain(data)
+        .groupBy(item => moment(item.date).year())
+        .map((data, index) => ({
+            year: index,
+            data
+        })).value();
 
-    const updateScrollTop = () => {
-      setScrollTop(scrollRef.current.scrollTop)
+    const firstDateObj = _.head(years);
+    const lastDateObj = _.last(years);
+
+    const firstDate = new Date(firstDateObj.year,0, 1);
+    const lastDate = new Date(lastDateObj.year, 11, 31);
+
+
+    const MIN = firstDate.getTime();
+    const MAX = lastDate.getTime();
+    const STEP = 86400000;
+
+    const [range, setRange] = useState([firstDate, lastDate]);
+
+    const filterData = (values) => {
+        console.log(moment(values[0]).format('DD-MM-YYYY'), moment(values[1]).format('DD-MM-YYYY'));
     };
 
     return (
         <Container>
             <ContainerYears>
-                <ScrollTimeLineContainer onScroll={updateScrollTop} ref={scrollRef}>
-                    <ScrollTimeLine heightScroll={scrollHeight}>
-
-                    </ScrollTimeLine>
+                <ScrollTimeLineContainer>
+                    <Range
+                        step={STEP}
+                        min={MIN}
+                        max={MAX}
+                        direction={Direction.Down}
+                        values={range}
+                        onChange={values => setRange(values)}
+                        onFinalChange={values => filterData(values)}
+                        renderTrack={({props, children}) => (
+                            <div
+                                onMouseDown={props.onMouseDown}
+                                onTouchStart={props.onTouchStart}
+                                style={{
+                                    ...props.style,
+                                    height: '100%',
+                                    width: '100%',
+                                    display: 'flex',
+                                    backgroundColor: 'transparent'
+                                }}
+                            >
+                                <div
+                                    ref={props.ref}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        background: getTrackBackground({
+                                            direction: Direction.Down,
+                                            values: range,
+                                            colors: ['transparent', 'rgba(90, 115, 163, 0.5)', 'transparent'],
+                                            min: MIN,
+                                            max: MAX,
+                                        }),
+                                        alignSelf: 'center'
+                                    }}
+                                >
+                                    {children}
+                                </div>
+                            </div>
+                        )}
+                        renderThumb={({props}) => (
+                            <div
+                                {...props}
+                                style={{
+                                    ...props.style,
+                                    width: '16px',
+                                    height: '8px',
+                                    borderRadius: '5px',
+                                    backgroundColor: '#31518c',
+                                }}
+                            />
+                        )}
+                    />
                 </ScrollTimeLineContainer>
-                <TimelineResumeItem/>
-                <TimelineResumeItem/>
-                <TimelineResumeItem/>
-                <TimelineResumeItem/>
+                {years.map((item, index) => (<TimelineResumeItem key={index} {...{item}} />))}
             </ContainerYears>
         </Container>
     );
