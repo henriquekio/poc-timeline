@@ -4,14 +4,19 @@ import _ from 'lodash';
 import moment from "moment";
 
 const ContainerItem = styled.div`
-margin-top: .5em;
+position: relative;
 display: grid;
-grid-template-rows: 20px 2fr;
+grid-template-rows: 2fr;
 `;
 
 const ContainerTitle = styled.div`
-position: relative;
+position: absolute;
 text-align: center;
+top: 0;
+right: 0;
+left: 0;
+display: inline-block;
+margin: 0 auto;
 &:before{
 position: absolute;
 content: '';
@@ -49,13 +54,13 @@ grid-template-areas: "month1"
 "month10"
 "month11"
 "month12";
-padding: 0 .5em;
+width: 40px;
 `;
 
 const ContainerPoint = styled.div(({month}) => ({
     display: 'flex',
     justifyContent: 'space-between',
-    gridArea: 'month'+month
+    gridArea: 'month' + month
 }));
 
 const Point = styled.div`
@@ -75,10 +80,10 @@ const TimelineResumeItem = ({item = {}}) => {
 
     return (
         <ContainerItem>
-            <ContainerTitle>
-                <Title>{item.year}</Title>
-            </ContainerTitle>
             <ContainerPointItem>
+                <ContainerTitle>
+                    <Title>{item.year}</Title>
+                </ContainerTitle>
                 {month.map(({month, data}) => (
                     <ContainerPoint key={month} {...{month}}>
                         {data.map((data, index) => <Point key={index}/>)}

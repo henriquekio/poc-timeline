@@ -40,11 +40,22 @@ const TimelineResume = ({data = []}) => {
             data
         })).value();
 
-    const MIN = 0;
-    const MAX = 100;
-    const STEP = 0.1;
+    const firstDateObj = _.head(years);
+    const lastDateObj = _.last(years);
 
-    const [range, setRange] = useState([50, 75]);
+    const firstDate = new Date(firstDateObj.year,0, 1);
+    const lastDate = new Date(lastDateObj.year, 11, 31);
+
+
+    const MIN = firstDate.getTime();
+    const MAX = lastDate.getTime();
+    const STEP = 86400000;
+
+    const [range, setRange] = useState([firstDate, lastDate]);
+
+    const filterData = (values) => {
+        console.log(moment(values[0]).format('DD-MM-YYYY'), moment(values[1]).format('DD-MM-YYYY'));
+    };
 
     return (
         <Container>
@@ -57,6 +68,7 @@ const TimelineResume = ({data = []}) => {
                         direction={Direction.Down}
                         values={range}
                         onChange={values => setRange(values)}
+                        onFinalChange={values => filterData(values)}
                         renderTrack={({props, children}) => (
                             <div
                                 onMouseDown={props.onMouseDown}
