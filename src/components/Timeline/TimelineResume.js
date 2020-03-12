@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components'
 import TimelineResumeItem from "./TimelineResumeItem";
 import {Direction, getTrackBackground, Range} from 'react-range';
-import _ from 'lodash';
+import {chain, head, last} from 'lodash';
 import moment from "moment";
 
 const Container = styled.div`
@@ -33,15 +33,15 @@ z-index: 999;
 
 
 const TimelineResume = ({data = []}) => {
-    const years = _.chain(data)
+    const years = chain(data)
         .groupBy(item => moment(item.date).year())
         .map((data, index) => ({
             year: index,
             data
         })).value();
 
-    const firstDateObj = _.head(years);
-    const lastDateObj = _.last(years);
+    const firstDateObj = head(years);
+    const lastDateObj = last(years);
 
     const firstDate = new Date(firstDateObj.year,0, 1);
     const lastDate = new Date(lastDateObj.year, 11, 31);
@@ -53,8 +53,8 @@ const TimelineResume = ({data = []}) => {
 
     const [range, setRange] = useState([firstDate, lastDate]);
 
-    const filterData = (values) => {
-        console.log(moment(values[0]).format('DD-MM-YYYY'), moment(values[1]).format('DD-MM-YYYY'));
+    const filterData = ([start, end]) => {
+        console.log(moment(start).format('DD-MM-YYYY'), moment(end).format('DD-MM-YYYY'));
     };
 
     return (

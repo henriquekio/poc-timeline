@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
-import _ from 'lodash';
+import {chain} from 'lodash';
 import moment from "moment";
 
 const ContainerItem = styled.div`
@@ -73,7 +73,7 @@ margin: 1px;
 
 const TimelineResumeItem = ({item = {}}) => {
     const {data} = item;
-    const month = _.chain(data)
+    const month = chain(data)
         .groupBy(({date}) => (moment(date).month() + 1))
         .map((value, index) => ({month: parseInt(index), data: value}))
         .value();
